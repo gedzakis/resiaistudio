@@ -1,0 +1,6 @@
+{
+  "name": "REŠI — Tvoj AI profesor",
+  "description": "Kompletna AI obrazovna platforma za rešavanje zadataka sa fotografije, učenje matematike, fizike, hemije, programiranja i pripremu testova bez registracije.",
+  "requestFramePermissions": ["camera"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="resiBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1D4ED8" />
+      <stop offset="100%" stop-color="#0284C7" />
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="112" fill="url(#resiBg)" />
+  <rect x="28" y="28" width="456" height="456" rx="92" fill="none" stroke="rgba(255,255,255,0.22)" stroke-width="4" />
+  <!-- Geometric Open Notebook / Knowledge Mark -->
+  <path
+    d="M128 156 C128 140 140 128 156 128 L244 128 L244 352 L156 352 C140 352 128 340 128 324 Z"
+    fill="none"
+    stroke="#FFFFFF"
+    stroke-width="22"
+    stroke-linejoin="round"
+  />
+  <path
+    d="M384 156 C384 140 372 128 356 128 L268 128 L268 352 L356 352 C372 352 384 340 384 324 Z"
+    fill="none"
+    stroke="#FFFFFF"
+    stroke-width="22"
+    stroke-linejoin="round"
+  />
+  <!-- Solution Checkmark Accent on Right Page -->
+  <path
+    d="M294 238 L320 264 L358 212"
+    fill="none"
+    stroke="#BAE6FD"
+    stroke-width="20"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+  <!-- Formula Lines on Left Page -->
+  <line x1="162" y1="194" x2="214" y2="194" stroke="#FFFFFF" stroke-width="16" stroke-linecap="round" />
+  <line x1="162" y1="242" x2="214" y2="242" stroke="#FFFFFF" stroke-width="16" stroke-linecap="round" />
+  <line x1="162" y1="290" x2="198" y2="290" stroke="#BAE6FD" stroke-width="16" stroke-linecap="round" />
+  <!-- Base Lettermark R -->
+  <text
+    x="256"
+    y="428"
+    text-anchor="middle"
+    fill="#FFFFFF"
+    font-family="Plus Jakarta Sans, system-ui, sans-serif"
+    font-size="68"
+    font-weight="800"
+    letter-spacing="6"
+  >REŠI</text>
+</svg>

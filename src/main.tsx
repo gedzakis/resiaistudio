@@ -4,6 +4,14 @@ import 'katex/dist/katex.min.css';
 import App from './App.tsx';
 import './index.css';
 
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js', { scope: '/' }).catch(() => {
+      // Service worker registration skipped if blocked in restricted context
+    });
+  });
+}
+
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <App />

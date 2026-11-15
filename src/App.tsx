@@ -4,6 +4,7 @@ import { CodeLabView } from './components/CodeLabView.tsx';
 import { Header } from './components/Header.tsx';
 import { HistoryView } from './components/HistoryView.tsx';
 import { HomeView } from './components/HomeView.tsx';
+import { OfflineIndicator, PWAInstallButton } from './components/PWAInstallButton.tsx';
 import { ProfessorView } from './components/ProfessorView.tsx';
 import { QuizView } from './components/QuizView.tsx';
 import { SolverView } from './components/SolverView.tsx';
@@ -282,9 +283,11 @@ export default function App() {
             >
               {script === 'lat' ? 'Ћирилица' : 'Latinica'}
             </button>
+            <PWAInstallButton script={script} />
           </div>
         </div>
       </footer>
+      <OfflineIndicator script={script} />
     </div>
   );
 }

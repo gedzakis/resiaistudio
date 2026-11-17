@@ -33,7 +33,7 @@ export interface QuotaStatus {
   dateKey: string;
   timezone: 'Europe/Belgrade';
   nextResetIso: string;
-  persistenceMode: 'redis-atomic' | 'file-atomic' | 'ephemeral-warning';
+  persistenceMode: 'redis-atomic' | 'file-atomic' | 'cookie-signed';
   persistenceProtected: boolean;
   warningMessage?: string;
   apiKeyConfigured: boolean;

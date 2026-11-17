@@ -81,7 +81,7 @@ export function createApiApp(): express.Express {
 
     let reservation;
     try {
-      const check = await reserveQuota(identity);
+      const check = await reserveQuota(identity, res);
       if (!check.allowed || !check.reservation) {
         res.status(check.status.apiKeyConfigured ? 429 : 503).json({
           error: check.reason || 'Dostigao si dnevni limit od 3 besplatna pitanja.',
@@ -124,18 +124,19 @@ export function createApiApp(): express.Express {
 
       if (!result.readable) {
         // Blurry / unreadable photo must NOT consume user's daily free question
-        await releaseQuota(reservation);
-        const updatedQuota = await getQuotaStatus(identity);
+        const updatedQuota =
+          (await releaseQuota(reservation, res)) ?? (await getQuotaStatus(identity));
         res.json({ ...result, quota: updatedQuota });
         return;
       }
 
-      await commitQuota(reservation);
-      const updatedQuota = await getQuotaStatus(identity);
+      const updatedQuota =
+        (await commitQuota(reservation, res)) ?? (await getQuotaStatus(identity));
       res.json({ ...result, quota: updatedQuota });
     } catch (err) {
-      await releaseQuota(reservation);
-      const updatedQuota = await getQuotaStatus(identity).catch(() => undefined);
+      const updatedQuota =
+        (await releaseQuota(reservation, res)) ??
+        (await getQuotaStatus(identity).catch(() => undefined));
       if (err instanceof GeminiServiceError) {
         res.status(err.statusCode).json({ error: err.message, code: err.code, quota: updatedQuota });
         return;
@@ -164,7 +165,7 @@ export function createApiApp(): express.Express {
 
     let reservation;
     try {
-      const check = await reserveQuota(identity);
+      const check = await reserveQuota(identity, res);
       if (!check.allowed || !check.reservation) {
         res.status(check.status.apiKeyConfigured ? 429 : 503).json({
           error: check.reason || 'Dostigao si dnevni limit od 3 besplatna pitanja.',
@@ -182,12 +183,13 @@ export function createApiApp(): express.Express {
         taskContext,
       });
 
-      await commitQuota(reservation);
-      const updatedQuota = await getQuotaStatus(identity);
+      const updatedQuota =
+        (await commitQuota(reservation, res)) ?? (await getQuotaStatus(identity));
       res.json({ ...result, quota: updatedQuota });
     } catch (err) {
-      await releaseQuota(reservation);
-      const updatedQuota = await getQuotaStatus(identity).catch(() => undefined);
+      const updatedQuota =
+        (await releaseQuota(reservation, res)) ??
+        (await getQuotaStatus(identity).catch(() => undefined));
       if (err instanceof GeminiServiceError) {
         res.status(err.statusCode).json({ error: err.message, code: err.code, quota: updatedQuota });
         return;
@@ -216,7 +218,7 @@ export function createApiApp(): express.Express {
 
     let reservation;
     try {
-      const check = await reserveQuota(identity);
+      const check = await reserveQuota(identity, res);
       if (!check.allowed || !check.reservation) {
         res.status(check.status.apiKeyConfigured ? 429 : 503).json({
           error: check.reason || 'Dostigao si dnevni limit od 3 besplatna pitanja.',
@@ -235,18 +237,19 @@ export function createApiApp(): express.Express {
       });
 
       if (!result.readable) {
-        await releaseQuota(reservation);
-        const updatedQuota = await getQuotaStatus(identity);
+        const updatedQuota =
+          (await releaseQuota(reservation, res)) ?? (await getQuotaStatus(identity));
         res.json({ ...result, quota: updatedQuota });
         return;
       }
 
-      await commitQuota(reservation);
-      const updatedQuota = await getQuotaStatus(identity);
+      const updatedQuota =
+        (await commitQuota(reservation, res)) ?? (await getQuotaStatus(identity));
       res.json({ ...result, quota: updatedQuota });
     } catch (err) {
-      await releaseQuota(reservation);
-      const updatedQuota = await getQuotaStatus(identity).catch(() => undefined);
+      const updatedQuota =
+        (await releaseQuota(reservation, res)) ??
+        (await getQuotaStatus(identity).catch(() => undefined));
       if (err instanceof GeminiServiceError) {
         res.status(err.statusCode).json({ error: err.message, code: err.code, quota: updatedQuota });
         return;
@@ -276,7 +279,7 @@ export function createApiApp(): express.Express {
 
     let reservation;
     try {
-      const check = await reserveQuota(identity);
+      const check = await reserveQuota(identity, res);
       if (!check.allowed || !check.reservation) {
         res.status(check.status.apiKeyConfigured ? 429 : 503).json({
           error: check.reason || 'Dostigao si dnevni limit od 3 besplatna pitanja.',
@@ -295,12 +298,13 @@ export function createApiApp(): express.Express {
         script: normalizeScript(script),
       });
 
-      await commitQuota(reservation);
-      const updatedQuota = await getQuotaStatus(identity);
+      const updatedQuota =
+        (await commitQuota(reservation, res)) ?? (await getQuotaStatus(identity));
       res.json({ ...result, quota: updatedQuota });
     } catch (err) {
-      await releaseQuota(reservation);
-      const updatedQuota = await getQuotaStatus(identity).catch(() => undefined);
+      const updatedQuota =
+        (await releaseQuota(reservation, res)) ??
+        (await getQuotaStatus(identity).catch(() => undefined));
       if (err instanceof GeminiServiceError) {
         res.status(err.statusCode).json({ error: err.message, code: err.code, quota: updatedQuota });
         return;
@@ -335,7 +339,7 @@ export function createApiApp(): express.Express {
         base64Data,
       });
 
-      const check = await reserveQuota(identity);
+      const check = await reserveQuota(identity, res);
       if (!check.allowed || !check.reservation) {
         res.status(check.status.apiKeyConfigured ? 429 : 503).json({
           error: check.reason || 'Dostigao si dnevni limit od 3 besplatna pitanja.',
@@ -351,12 +355,13 @@ export function createApiApp(): express.Express {
         script: normalizeScript(script),
       });
 
-      await commitQuota(reservation);
-      const updatedQuota = await getQuotaStatus(identity);
+      const updatedQuota =
+        (await commitQuota(reservation, res)) ?? (await getQuotaStatus(identity));
       res.json({ ...result, quota: updatedQuota });
     } catch (err) {
-      await releaseQuota(reservation);
-      const updatedQuota = await getQuotaStatus(identity).catch(() => undefined);
+      const updatedQuota =
+        (await releaseQuota(reservation, res)) ??
+        (await getQuotaStatus(identity).catch(() => undefined));
       if (err instanceof GeminiServiceError) {
         res.status(err.statusCode).json({ error: err.message, code: err.code, quota: updatedQuota });
         return;
@@ -384,7 +389,7 @@ export function createApiApp(): express.Express {
 
     let reservation;
     try {
-      const check = await reserveQuota(identity);
+      const check = await reserveQuota(identity, res);
       if (!check.allowed || !check.reservation) {
         res.status(check.status.apiKeyConfigured ? 429 : 503).json({
           error: check.reason || 'Dostigao si dnevni limit od 3 besplatna pitanja.',
@@ -401,12 +406,13 @@ export function createApiApp(): express.Express {
         script: normalizeScript(script),
       });
 
-      await commitQuota(reservation);
-      const updatedQuota = await getQuotaStatus(identity);
+      const updatedQuota =
+        (await commitQuota(reservation, res)) ?? (await getQuotaStatus(identity));
       res.json({ ...result, quota: updatedQuota });
     } catch (err) {
-      await releaseQuota(reservation);
-      const updatedQuota = await getQuotaStatus(identity).catch(() => undefined);
+      const updatedQuota =
+        (await releaseQuota(reservation, res)) ??
+        (await getQuotaStatus(identity).catch(() => undefined));
       if (err instanceof GeminiServiceError) {
         res.status(err.statusCode).json({ error: err.message, code: err.code, quota: updatedQuota });
         return;
@@ -434,7 +440,7 @@ export function createApiApp(): express.Express {
 
     let reservation;
     try {
-      const check = await reserveQuota(identity);
+      const check = await reserveQuota(identity, res);
       if (!check.allowed || !check.reservation) {
         res.status(check.status.apiKeyConfigured ? 429 : 503).json({
           error: check.reason || 'Dostigao si dnevni limit od 3 besplatna pitanja.',
@@ -451,12 +457,13 @@ export function createApiApp(): express.Express {
         script: normalizeScript(script),
       });
 
-      await commitQuota(reservation);
-      const updatedQuota = await getQuotaStatus(identity);
+      const updatedQuota =
+        (await commitQuota(reservation, res)) ?? (await getQuotaStatus(identity));
       res.json({ ...result, quota: updatedQuota });
     } catch (err) {
-      await releaseQuota(reservation);
-      const updatedQuota = await getQuotaStatus(identity).catch(() => undefined);
+      const updatedQuota =
+        (await releaseQuota(reservation, res)) ??
+        (await getQuotaStatus(identity).catch(() => undefined));
       if (err instanceof GeminiServiceError) {
         res.status(err.statusCode).json({ error: err.message, code: err.code, quota: updatedQuota });
         return;

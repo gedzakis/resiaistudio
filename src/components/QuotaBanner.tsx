@@ -31,7 +31,7 @@ export function QuotaBanner({
 
   if (!quota) return null;
 
-  const isExhausted = quota.remaining === 0;
+  const isExhausted = quota.used >= quota.limit && quota.remaining <= 0;
 
   return (
     <div className="space-y-2">
